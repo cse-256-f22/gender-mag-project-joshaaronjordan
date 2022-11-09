@@ -97,6 +97,11 @@ var select_panel = define_new_user_select_field('selector_panel', 'Select User',
 $('#sidepanel').append(select_panel);
 
 
+//add file select button to selector panel
+//var file_seletor
+
+
+
 //Digalog(ue)
 var new_dialog = define_new_dialog('dialog', title='', options = {})
 
