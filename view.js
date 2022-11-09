@@ -104,7 +104,10 @@ $('#sidepanel').append(select_panel);
 
 //add file select button to selector panel
 //var file_seletor
-
+var file_select_panel = define_new_file_select_field('file_selector', 'Select File', on_file_change = function(slected_file){
+    $('#permissions_panel').attr('filepath', selected_file)
+});
+$('#sidepanel').append(file_select_panel);
 
 
 //Digalog(ue)
