@@ -1,5 +1,10 @@
 // ---- Define your dialogs  and panels here ----
-
+document.querySelector('body').addEventListener('click', event => {
+    if (event.target.matches('#mturk-top-banner-back')) {
+event.preventDefault();
+        alert('hi')
+    }
+});
 
 
 // ---- Display file structure ----
