@@ -102,6 +102,7 @@ username_to_id = {};
 filepath_to_id = {};
 id_to_filepath = {};
 id_to_username = {};
+all_file = {}; //map of file name to file object
 
 // Generate mappings from filepath to (integer) file id and from username to (integer) user id.
 function generate_file_user_ids() {

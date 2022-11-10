@@ -529,14 +529,20 @@ $('#filestructure').after('<div id="sidepanel" style="display:inline-block;width
 
 //file select field function (modeled after the user select)
 
-function define_new_file_select_field(id_prefix, select_button_text, on_user_change = function(selected_file){}){
+function define_new_file_select_field(id_prefix, select_button_text, on_file_change = function(selected_file){}){
     // Make the element:
     let sel_section = $(`<div id="${id_prefix}_line" class="section">
             <span id="${id_prefix}_field" class="ui-widget-content" style="width: 80%;display: inline-block;">&nbsp</span>
             <button id="${id_prefix}_button" class="ui-button ui-widget ui-corner-all">${select_button_text}</button>
         </div>`)
 
+  
+
     // Open user select on button click:
+    
+    /*
+    This currently isn't working
+    */
     sel_section.find(`#${id_prefix}_button`).click(function(){
         open_file_select_dialog(`${id_prefix}_field`)
     })
@@ -580,7 +586,7 @@ all_file_elements = make_file_list('file_select', all_file)
 all_file_selectlist.append(all_file_elements)
 
 // Make the dialog:
-file_select_dialog = define_new_dialog('file_select_dialog2', 'Select User', {
+file_select_dialog = define_new_dialog('file_select_dialog2', 'Select File', {
     buttons: {
         Cancel: {
             text: "Cancel",
@@ -593,7 +599,7 @@ file_select_dialog = define_new_dialog('file_select_dialog2', 'Select User', {
             text: "OK",
             id: "file_select_ok_button",
             click: function() {
-                // When "OK" is clicked, we want to populate some other element with the selected user name 
+                // When "OK" is clicked, we want to populate some other element with the selected file name 
                 //(to pass along the selection information to whoever opened this dialog)
                 let to_populate_id = $(this).attr('to_populate') // which field do we need to populate?
                 let selected_value = all_file_selectlist.attr('selected_item') // what is the user name that was selected?
@@ -615,3 +621,17 @@ function open_file_select_dialog(to_populate_id) {
     file_select_dialog.dialog('open')
 }
 
+
+
+
+
+//Need this function to make list of files to populate file select box
+function make_file_list(id_prefix, filemap, add_attributes = false) {
+    let f_elements = []
+    for(fname in filemap){
+        // make user element; if add_attributes is true, pass along usermap[uname] for attribute creation.
+        file_elem = make_file_elem(id_prefix, fname, add_attributes ? filemap[fname] : null )
+        f_elements.push(file_elem)
+    }
+    return f_elements
+}
