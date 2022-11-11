@@ -582,7 +582,7 @@ function define_new_file_select_field(id_prefix, select_button_text, on_file_cha
 all_file_selectlist = define_single_select_list('file_select_list')
 
 // Make the elements which reperesent all users, and add them to the selectable
-all_file_elements = make_file_list('file_select', all_file)
+all_file_elements = make_file_list('file_select', files) /* Changing this to 'all_file' works */
 all_file_selectlist.append(all_file_elements)
 
 // Make the dialog:
@@ -626,12 +626,36 @@ function open_file_select_dialog(to_populate_id) {
 
 
 //Need this function to make list of files to populate file select box
-function make_file_list(id_prefix, filemap, add_attributes = false) {
+function make_file_list(filemap) {
     let f_elements = []
-    for(fname in filemap){
+    for(curfile in filemap){
         // make user element; if add_attributes is true, pass along usermap[uname] for attribute creation.
-        file_elem = make_file_elem(id_prefix, fname, add_attributes ? filemap[fname] : null )
+        file_elem = make_file_elem(curfile)
         f_elements.push(file_elem)
     }
     return f_elements
+}
+
+
+function make_file_elem(file_obj) {
+    let file_hash = get_full_path(file_obj)
+
+    if(file_obj.is_folder) {
+        let folder_element = $(`<div class='folder' id="${file_hash}_div">
+            <h3 id="${file_hash}_header">
+                <span class="oi oi-folder" id="${file_hash}_icon"/> ${file_obj.filename} 
+                <button class="ui-button ui-widget ui-corner-all permbutton" path="${file_hash}" id="${file_hash}_permbutton"> 
+                    <span class="oi oi-lock-unlocked" id="${file_hash}_permicon"/> 
+                </button>
+            </h3>
+        </div>`)
+    }
+    else {
+        return $(`<div class='file'  id="${file_hash}_div">
+            <span class="oi oi-file" id="${file_hash}_icon"/> ${file_obj.filename}
+            <button class="ui-button ui-widget ui-corner-all permbutton" path="${file_hash}" id="${file_hash}_permbutton"> 
+                <span class="oi oi-lock-unlocked" id="${file_hash}_permicon"/> 
+            </button>
+        </div>`)
+    }
 }
