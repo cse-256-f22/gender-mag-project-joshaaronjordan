@@ -550,7 +550,7 @@ function define_new_file_select_field(id_prefix, select_button_text, on_file_cha
     define_attribute_observer(field_selector, 'selected_file', function(new_filename){
         field_selector.text(new_filename)
         // call the function for additional processing of user change:
-        on_user_change(new_filename)
+        on_file_change(new_filename)
     })
 
     return sel_section
@@ -583,7 +583,7 @@ all_file_selectlist = define_single_select_list('file_select_list')
 //all_file_elements = make_file_list(all_file) /* Changing this to 'all_file' works */
 //all_file_selectlist.append(all_file_elements)
 
-all_file_elements = make_file_list('file_select', files) /* Changing this to 'all_file' works */
+all_file_elements = make_file_list('file_select', path_to_file) /* Changing this to 'all_file' works */
 all_file_selectlist.append(all_file_elements)
 
 
