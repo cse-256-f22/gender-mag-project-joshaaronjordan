@@ -540,9 +540,7 @@ function define_new_file_select_field(id_prefix, select_button_text, on_file_cha
 
     // Open user select on button click:
     
-    /*
-    This currently isn't working
-    */
+
     sel_section.find(`#${id_prefix}_button`).click(function(){
         open_file_select_dialog(`${id_prefix}_field`)
     })
@@ -582,8 +580,12 @@ function define_new_file_select_field(id_prefix, select_button_text, on_file_cha
 all_file_selectlist = define_single_select_list('file_select_list')
 
 // Make the elements which reperesent all users, and add them to the selectable
+//all_file_elements = make_file_list(all_file) /* Changing this to 'all_file' works */
+//all_file_selectlist.append(all_file_elements)
+
 all_file_elements = make_file_list('file_select', files) /* Changing this to 'all_file' works */
 all_file_selectlist.append(all_file_elements)
+
 
 // Make the dialog:
 file_select_dialog = define_new_dialog('file_select_dialog2', 'Select File', {
@@ -625,37 +627,106 @@ function open_file_select_dialog(to_populate_id) {
 
 
 
-//Need this function to make list of files to populate file select box
-function make_file_list(filemap) {
-    let f_elements = []
-    for(curfile in filemap){
+// //Need this function to make list of files to populate file select box
+// function make_file_list(filemap) {
+//     let f_elements = []
+//     for(curfile in filemap){
+//         // make user element; if add_attributes is true, pass along usermap[uname] for attribute creation.
+//         file_elem = make_file_elem(curfile)
+//         f_elements.push(file_elem)
+//     }
+//     return f_elements
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// --- Helper functions to create transient elements and data structures.
+// --- These elements will be created and destroyed as needed (often when the data being displayed changes).
+
+// Make an element for a user - this element would usually go into a selectable list of users. 
+// The element automatically creates an icon which varies based on whether it's a singular user or a group, 
+// // and also adds any attributes you pass along
+// function make_file_elem(filename, uname) {
+//     user_elem = $(`<div class="ui-widget-content" id="${id_prefix}_${uname}" name="${uname}">
+//         <span id="${id_prefix}_${uname}_icon" class="oi ${is_user(all_users[uname])?'oi-person':'oi-people'}"/> 
+//         <span id="${id_prefix}_${uname}_text">${uname} </span>
+//     </div>`)
+
+
+
+//     return user_elem
+// }
+
+
+
+
+
+
+// function make_file_elem(file_obj){
+//     let file_path = get_full_path(file_obj)
+
+// user_elem = $(`<div class="ui-widget-content" name="${file_obj}">
+//          <span class="oi ${is_user(all_users[uname])?'oi-person':'oi-people'}"/> 
+//          <span id="${id_prefix}_${uname}_text">${uname} </span>
+//      </div>`)
+
+// return user_elem
+// }
+
+
+
+
+
+
+
+/*
+
+Plan:
+Make list of filenames
+Make them selectable buttons
+On click make one selected
+Whatever button is selected when you click ok is the user change -- Take inspiration
+
+
+function that iterates through *FILES* list and makes a button through HTML that has the class of a button I can steal and the id
+
+
+*/
+
+function make_file_list(id_prefix, usermap) {
+    let u_elements = []
+    for(uname in usermap){
         // make user element; if add_attributes is true, pass along usermap[uname] for attribute creation.
-        file_elem = make_file_elem(curfile)
-        f_elements.push(file_elem)
+        user_elem = make_file_elem(id_prefix, uname)
+        u_elements.push(user_elem)
     }
-    return f_elements
+    return u_elements
 }
 
 
-function make_file_elem(file_obj) {
-    let file_hash = get_full_path(file_obj)
+function make_file_elem(id_prefix, uname) {
+    user_elem = $(`<div class="ui-widget-content" id="${id_prefix}_${uname}" name="${uname}">
+        <span id="${id_prefix}_${uname}_icon" class="oi 'oi-people'}"/> 
+        <span id="${id_prefix}_${uname}_text">${uname} </span>
+    </div>`)
 
-    if(file_obj.is_folder) {
-        let folder_element = $(`<div class='folder' id="${file_hash}_div">
-            <h3 id="${file_hash}_header">
-                <span class="oi oi-folder" id="${file_hash}_icon"/> ${file_obj.filename} 
-                <button class="ui-button ui-widget ui-corner-all permbutton" path="${file_hash}" id="${file_hash}_permbutton"> 
-                    <span class="oi oi-lock-unlocked" id="${file_hash}_permicon"/> 
-                </button>
-            </h3>
-        </div>`)
-    }
-    else {
-        return $(`<div class='file'  id="${file_hash}_div">
-            <span class="oi oi-file" id="${file_hash}_icon"/> ${file_obj.filename}
-            <button class="ui-button ui-widget ui-corner-all permbutton" path="${file_hash}" id="${file_hash}_permbutton"> 
-                <span class="oi oi-lock-unlocked" id="${file_hash}_permicon"/> 
-            </button>
-        </div>`)
-    }
+
+    return user_elem
 }
