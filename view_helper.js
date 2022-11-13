@@ -579,11 +579,8 @@ function define_new_file_select_field(id_prefix, select_button_text, on_file_cha
 // Make a selectable list which will store all of the users, and automatically keep track of which one is selected.
 all_file_selectlist = define_single_select_list('file_select_list')
 
-// Make the elements which reperesent all users, and add them to the selectable
-//all_file_elements = make_file_list(all_file) /* Changing this to 'all_file' works */
-//all_file_selectlist.append(all_file_elements)
 
-all_file_elements = make_file_list('file_select', path_to_file) /* Changing this to 'all_file' works */
+all_file_elements = make_file_list('file_select', path_to_file)
 all_file_selectlist.append(all_file_elements)
 
 
@@ -622,74 +619,6 @@ function open_file_select_dialog(to_populate_id) {
     file_select_dialog.attr('to_populate', to_populate_id)
     file_select_dialog.dialog('open')
 }
-
-
-
-
-
-// //Need this function to make list of files to populate file select box
-// function make_file_list(filemap) {
-//     let f_elements = []
-//     for(curfile in filemap){
-//         // make user element; if add_attributes is true, pass along usermap[uname] for attribute creation.
-//         file_elem = make_file_elem(curfile)
-//         f_elements.push(file_elem)
-//     }
-//     return f_elements
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// --- Helper functions to create transient elements and data structures.
-// --- These elements will be created and destroyed as needed (often when the data being displayed changes).
-
-// Make an element for a user - this element would usually go into a selectable list of users. 
-// The element automatically creates an icon which varies based on whether it's a singular user or a group, 
-// // and also adds any attributes you pass along
-// function make_file_elem(filename, uname) {
-//     user_elem = $(`<div class="ui-widget-content" id="${id_prefix}_${uname}" name="${uname}">
-//         <span id="${id_prefix}_${uname}_icon" class="oi ${is_user(all_users[uname])?'oi-person':'oi-people'}"/> 
-//         <span id="${id_prefix}_${uname}_text">${uname} </span>
-//     </div>`)
-
-
-
-//     return user_elem
-// }
-
-
-
-
-
-
-// function make_file_elem(file_obj){
-//     let file_path = get_full_path(file_obj)
-
-// user_elem = $(`<div class="ui-widget-content" name="${file_obj}">
-//          <span class="oi ${is_user(all_users[uname])?'oi-person':'oi-people'}"/> 
-//          <span id="${id_prefix}_${uname}_text">${uname} </span>
-//      </div>`)
-
-// return user_elem
-// }
-
 
 
 
