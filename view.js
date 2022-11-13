@@ -2,7 +2,7 @@
 document.querySelector('body').addEventListener('click', event => {
     if (event.target.matches('#mturk-top-banner-back')) {
 event.preventDefault();
-        alert('hi')
+        alert('Please refresh the page to reset the file permissions.')
     }
 });
 
