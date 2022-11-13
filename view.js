@@ -97,7 +97,7 @@ $('#sidepanel').append(new_user_permission);
 
 var select_panel = define_new_user_select_field('selector_panel', 'Select User', on_user_change = function(selected_user) {
     $('#permissions_panel').attr('username', selected_user)
-    $('#permissions_panel').attr('filepath', '/C/presentation_documents/important_file.txt')
+    //$('#permissions_panel').attr('filepath', '/C/presentation_documents/important_file.txt')
  });
 $('#sidepanel').append(select_panel);
 
@@ -105,7 +105,9 @@ $('#sidepanel').append(select_panel);
 //add file select button to selector panel
 //var file_seletor
 var file_select_panel = define_new_file_select_field('file_selector', 'Select File', on_file_change = function(selected_file){
+    
     $('#permissions_panel').attr('filepath', selected_file)
+    
 });
 $('#sidepanel').append(file_select_panel);
 
