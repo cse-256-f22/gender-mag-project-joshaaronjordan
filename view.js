@@ -111,8 +111,7 @@ var file_select_panel = define_new_file_select_field('file_selector', 'Select Fi
 });
 $('#sidepanel').append(file_select_panel);
 
-
-
+$('#filestructure').append("<button id = \"revert_changes\" onClick=\"window.location.href=window.location.href\">Reset Changes</button>")
 
 //Digalog(ue)
 var new_dialog = define_new_dialog('dialog', title='', options = {})
@@ -129,6 +128,11 @@ $('.perm_info').click(function(){
     $('#dialog').text(explanation_text);
 
 })
+
+$('#filestructure').append("<div id = \"explanation_box\"> <h3>Welcome to your task, in order to change file permissions, click on the lock icons, select \
+a user to change permissions for, and change the permissions with the check boxes below. Remember, a user can inherit permissions from parent permission specifications. <br><br>It may be helpful to use the user selector or file selector on the right side of the screen --> <br>\
+If you are still struggling to effectively change the permission, please look at the \"Advanced\" when you click the lock icon.</h3> </div>")
+
 
 //Need to fix GetExplanationText object I think is last thing
 
