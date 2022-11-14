@@ -83,23 +83,33 @@ $('#html-loc').find('*').uniqueId()
 /*
 Studio code
 */
-var new_user_permission = define_new_effective_permissions('permissions_panel', true, null);
-$('#sidepanel').append(new_user_permission);
-
-
-//Create a user selection button
-// var selection_panel = define_new_user_select_field('new_user', 'Select User', function(selected_user) { 
-//     $('#permissions_panel').attr('username', selected_user)
-//     $('#permissions_panel').attr('filepath', 'C/presentation_documents/important_file.txt_permicon')
-// });
 
 
 
-var select_panel = define_new_user_select_field('selector_panel', 'Select User', on_user_change = function(selected_user) {
-    $('#permissions_panel').attr('username', selected_user)
-    //$('#permissions_panel').attr('filepath', '/C/presentation_documents/important_file.txt')
- });
-$('#sidepanel').append(select_panel);
+
+let permissions_panel = define_new_effective_permissions("perm_panel", true);
+$('#sidepanel').append(permissions_panel)
+
+let user_select_button = define_new_user_select_field('new_user', "Select", function(selected_user) {
+    $('#perm_panel').attr('username', selected_user)
+ })
+$('#sidepanel').append(user_select_button)
+$('#perm_panel').attr('filepath', '/C/presentation_documents/important_file.txt')
+let new_blank_dialog = define_new_dialog('dialog', 'Dialog Title');
+$('.perm_info').click(function(){
+
+    console.log('clicked!')
+    console.log($('#perm_panel').attr('filepath'), $('#perm_panel').attr('username'), $(this).attr('permission_name') )
+    $( "#dialog" ).dialog( "open" );
+    let file = path_to_file[$('#perm_panel').attr('filepath')]
+    let user = all_users[$('#perm_panel').attr('username')]
+    let explanation =  allow_user_action(file, user, $(this).attr('permission_name'), true)
+    let exp_string = get_explanation_text(explanation)
+    $( "#dialog" ).text(exp_string)
+
+})
+
+
 
 
 //add file select button to selector panel
@@ -113,21 +123,21 @@ $('#sidepanel').append(file_select_panel);
 
 $('#filestructure').append("<button id = \"revert_changes\" onClick=\"window.location.href=window.location.href\">Reset Changes</button>")
 
-//Digalog(ue)
-var new_dialog = define_new_dialog('dialog', title='', options = {})
+// //Digalog(ue)
+// var new_dialog = define_new_dialog('dialog', title='', options = {})
 
 
-$('.perm_info').click(function(){
-    new_dialog.dialog('open');
-    console.log($('#permissions_panel').attr('filepath'), $('#permissions_panel').attr('username'), $(this).attr('permission_name'));
+// $('.perm_info').click(function(){
+//     new_dialog.dialog('open');
+//     console.log($('#permissions_panel').attr('filepath'), $('#permissions_panel').attr('username'), $(this).attr('permission_name'));
 
-    var file_obj = path_to_file[$('#permissions_panel').attr('filepath')];
-    var user_obj = all_users[$('#permissions_panel').attr('username')];
-    const explanations = allow_user_action(file_obj, user_obj, $(this).attr('permission_name'), explain_why = true);
-    var explanation_text = get_explanation_text(explanations);
-    $('#dialog').text(explanation_text);
+//     var file_obj = path_to_file[$('#permissions_panel').attr('filepath')];
+//     var user_obj = all_users[$('#permissions_panel').attr('username')];
+//     const explanations = allow_user_action(file_obj, user_obj, $(this).attr('permission_name'), explain_why = true);
+//     var explanation_text = get_explanation_text(explanations);
+//     $('#dialog').text(explanation_text);
 
-})
+// })
 
 $('#filestructure').append("<div id = \"explanation_box\"> <h3>Welcome to your task, in order to change file permissions, click on the lock icons, select \
 a user to change permissions for, and change the permissions with the check boxes below. Remember, a user can inherit permissions from parent permission specifications. <br><br>It may be helpful to use the user selector or file selector on the right side of the screen --> <br>\
